@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Viewport guard: if a host strips this page's viewport tag, or wraps the page in a same-domain frame,
+   restore a mobile viewport so phones get the phone layout. Cross-domain wrappers cannot be repaired from
+   inside: host this file directly as index.html (see DEPLOY.md). */
+(function(){var want='width=device-width, initial-scale=1, viewport-fit=cover';
+function fix(d){try{var m=d.querySelector('meta[name="viewport"]');if(!m){m=d.createElement('meta');m.setAttribute('name','viewport');(d.head||d.documentElement).appendChild(m)}if(!/device-width/.test(m.getAttribute('content')||''))m.setAttribute('content',want);return true}catch(e){return false}}
+fix(document);if(window.top!==window.self){var ok=false;try{ok=fix(window.top.document)}catch(e){}
+if(!ok&&screen.width<=600&&innerWidth>=900&&window.console)console.warn('SIYAJ: page is inside a cross-domain wrapper; phones will see the desktop layout. Host index.html directly.')}})();
+</script>
 <title>SIYAJ · Measure AI risk. Make it insurable.</title>
 <meta name="description" content="Technical underwriting for AI risk in the UAE and Saudi Arabia.">
 <meta property="og:title" content="SIYAJ · Measure AI risk. Make it insurable.">
@@ -87,9 +96,9 @@ header .btn{min-height:44px;padding:0 18px;font-size:14px}
 .ov nav a em{font-family:var(--serif);font-weight:400;color:#66E8D5}
 .ov nav a .ic{color:#66E8D5}
 .ov .btn{margin-top:auto}
-.mcta{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);z-index:55;display:none;transform:translateY(150%);transition:transform .4s var(--ease)}
+.mcta{position:fixed;right:16px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:55;display:none;transform:translateY(150%);transition:transform .4s var(--ease)}
 .mcta.show{transform:none}.mcta.hide{transform:translateY(150%)}
-.mcta .btn{width:100%;box-shadow:0 18px 44px -10px rgba(0,0,0,.8)}
+.mcta .btn{min-height:50px;padding:0 20px;font-size:15px;box-shadow:0 0 0 1px rgba(4,32,26,.15),0 18px 40px -10px rgba(0,0,0,.75)}
 
 /* Hero */
 .hero{min-height:100svh;padding:0;display:flex;flex-direction:column;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 75% 20%,#10363B 0%,#0A222A 38%,#081217 72%)}
@@ -255,7 +264,7 @@ header .btn{min-height:44px;padding:0 18px;font-size:14px}
 .rng span{display:flex;justify-content:space-between;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}.rng b{font:700 16px var(--sans);letter-spacing:0;color:var(--fg)}
 input[type=range]{width:100%;accent-color:var(--accent);height:28px}
 .tg{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700;font-size:15px;min-height:44px}
-.tg input{appearance:none;width:54px;height:32px;border-radius:999px;background:var(--line);position:relative;transition:background .25s;cursor:pointer;flex:none}
+.tg input{-webkit-appearance:none;appearance:none;width:54px;height:32px;border-radius:999px;background:var(--line);position:relative;transition:background .25s;cursor:pointer;flex:none}
 .tg input:before{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .tg input:checked{background:var(--accent)}.tg input:checked:before{transform:translateX(22px)}
 .counts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
